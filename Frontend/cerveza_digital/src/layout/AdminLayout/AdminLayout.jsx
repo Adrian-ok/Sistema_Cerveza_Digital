@@ -11,12 +11,12 @@ export function AdminLayout(props) {
     if (!auth) return <LoginAdmin />
 
     return (
-        <div className="h-screen flex flex-col p-2 gap-2 bg-stone-300 dark:bg-slate-700">
+        <div className='h-screen flex flex-col p-2 gap-2 bg-stone-300 dark:bg-slate-700'>
             {/* El TopMenu tiene una altura fija o relativa */}
             <TopMenu menu={menu} openMenu={setMenu} />
 
             {/* Este div usa flex-grow para ocupar el espacio restante */}
-            <div className="flex flex-grow gap-2">
+            <div className='flex flex-grow gap-2 overflow-y-auto'>
                 {menu && <SideMenu />}
                 {children}
             </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getCategoriesApi } from '../api/category'
+import { getCategoriesApi, addCategoryApi, updateCategoryApi, deleteCategoryApi } from '../api/category'
 import { useAuth } from '../hooks'
 
 export function useCategory() {
@@ -16,12 +16,46 @@ export function useCategory() {
             setLoading(false)
         } catch (error) {
             setLoading(false)
+        }
+    }
+
+    const addCategory = async (data) => {
+        try {
+            setLoading(true)
+            await addCategoryApi(data, auth.token)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
+    const updateCategory = async (id, data) => {
+        try {
+            setLoading(true)
+            await updateCategoryApi(id, data, auth.token)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            setError(true)
+        }
+    }
+
+    const deleteCategory = async (id) => {
+        try {
+            setLoading(true)
+            await deleteCategoryApi(id, auth.token)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
             setError(true)
         }
     }
 
     return {
+        deleteCategory,
+        updateCategory,
         getCategories,
+        addCategory,
         categories,
         loading
     }
