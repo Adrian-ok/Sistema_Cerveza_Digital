@@ -12,6 +12,18 @@ export async function getProductsApi() {
     }
 }
 
+//OBTENER DATOS DE UN PRODUCTO POR ID
+export async function getProductByIdApi(id) {
+    try {
+        const url = `${BASE_URL}/api/products/${id}/`
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}
+
 //CREAR UN NUEVO PRODUCTO
 export async function addProductsApi(data, token) {
     try {

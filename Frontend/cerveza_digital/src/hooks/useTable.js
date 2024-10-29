@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { getTablesApi, addTableApi, updateTableApi, deleteTableApi } from '../api/table'
+import { getTablesApi, addTableApi, updateTableApi, deleteTableApi, getTableApi } from '../api/table'
 import { useAuth } from '../hooks'
 
 export function useTable() {
 
     const [tables, setTables] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [table, setTable] = useState(null)
     const { auth } = useAuth()
 
     const getTables = async () => {
@@ -14,6 +15,17 @@ export function useTable() {
             const result = await getTablesApi(auth.token)
             setLoading(false)
             setTables(result)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
+    const getTable = async (idTable) => {
+        try {
+            setLoading(true)
+            const result = await getTableApi(idTable)
+            setLoading(false)
+            setTable(result)
         } catch (error) {
             setLoading(false)
         }
@@ -52,9 +64,11 @@ export function useTable() {
     return {
         loading,
         tables,
+        table,
         getTables,
         addTable,
         updateTable,
-        deleteTable
+        deleteTable,
+        getTable
     }
 }

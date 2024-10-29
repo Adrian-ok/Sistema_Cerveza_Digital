@@ -18,6 +18,18 @@ export async function getTablesApi(token) {
     }
 }
 
+//OBTENER UNA MESA POR ID
+export async function getTableApi(idTable) {
+    try {
+        const url = `${BASE_URL}/api/tables/${idTable}/`
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}
+
 //AÑADIR UNA NUEVA MESA
 export async function addTableApi(data, token) {
     try {
