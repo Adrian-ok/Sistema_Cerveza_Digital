@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { createPaymentApi, getPaymentByTableApi, closePaymentApi } from '../api/payment'
+import { createPaymentApi, getPaymentByTableApi, closePaymentApi, getPaymentsApi } from '../api/payment'
 
 export function usePayment() {
 
     const [loading, setLoading] = useState(false)
+    const [payments, setPayments] = useState(null)
 
     const createPayment = async (paymentData) => {
         try {
@@ -29,10 +30,25 @@ export function usePayment() {
         }
     }
 
+    const getPayments = async () => {
+        try {
+            setLoading(true)
+            const response = await getPaymentsApi()
+            setPayments(response)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            throw error
+        }
+    }
+
     return {
         loading,
+        payments,
         createPayment,
         getPaymentByTable,
-        closePayment
+        closePayment,
+        getPayments,
+        getPayments
     }
 }

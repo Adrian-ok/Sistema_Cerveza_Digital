@@ -52,3 +52,18 @@ export async function closePaymentApi(idPayment) {
         throw error;
     }
 }
+
+//OBTENER TODOS LOS PAGOS DE MESAS CERRADAS
+export async function getPaymentsApi() {
+    try {
+        const paymentFilter = `statusPayment=${PAYMENT_STATUS.PAID}`
+        const orderingFilter = 'ordering=created_at'
+
+        const url = `${BASE_URL}/api/payments/?${paymentFilter}&${orderingFilter}`
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}
