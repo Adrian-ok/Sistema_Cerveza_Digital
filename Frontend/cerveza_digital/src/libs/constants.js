@@ -18,6 +18,11 @@ export const ORDER_STATUS = {
     DELIVERED: 'DELIVERED'
 }
 
+export const PAYMENT_STATUS = {
+    PENDING: 'PENDING',
+    PAID: 'PAID'
+}
+
 export function tiempoTranscurrido(fechaInicio, fechaFin) {
     // Asegurarse de que sean objetos Date
     const inicio = new Date(fechaInicio);

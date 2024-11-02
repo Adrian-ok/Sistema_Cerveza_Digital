@@ -1,3 +1,4 @@
+import { Await } from 'react-router-dom'
 import { BASE_URL, ORDER_STATUS } from '../libs/constants'
 
 //OBTENER ORDENES POR MESA
@@ -54,6 +55,44 @@ export async function addOrderToTableApi(idTable, idProduct) {
             }),
         };
         await fetch(url, params);
+    } catch (error) {
+        throw error
+    }
+}
+
+//ASOCIAR UN PAGO A LOS PEDIDOS CORRESPONDIENTES
+export async function addPaymentToOrderApi(idOrder, idPayment) {
+    try {
+        const url = `${BASE_URL}/api/orders/${idOrder}/`
+        const params = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                payment: idPayment
+            }),
+        };
+        await fetch(url, params)
+    } catch (error) {
+        throw error
+    }
+}
+
+//CERRAR UN PEDIDO
+export async function closeOrderApi(idOrder) {
+    try {
+        const url = `${BASE_URL}/api/orders/${idOrder}/`
+        const params = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                close: true,
+            }),
+        };
+        await fetch(url, params)
     } catch (error) {
         throw error
     }
