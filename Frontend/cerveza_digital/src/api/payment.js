@@ -25,10 +25,15 @@ export async function getPaymentByTableApi(idTable) {
         const tableFilter = `table=${idTable}`
         const statusFilter = `statusPayment=${PAYMENT_STATUS.PENDING}`
 
-        const url = `${BASE_URL}/api/payments/?${tableFilter}&${statusFilter}`
-        const response = await fetch(url)
-        const result = await response.json()
-        return result
+        const url = `${BASE_URL}/api/payments/?${tableFilter}&${statusFilter}`;
+        const params = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const response = await fetch(url, params);
+        const result = await response.json();
+        return result;
     } catch (error) {
         throw error
     }

@@ -26,7 +26,7 @@ export function TopMenu(props) {
     return (
         <Navbar fluid className='bg-[#f9fafb] rounded-md'>
             <NavbarBrand onClick={() => openMenu(!menu)} className="cursor-pointer" >
-                <img src="/vite.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
+                <img src="/logo_two.png" className="mr-3 w-10 sm:h-9" alt="Flowbite React Logo" />
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Cerveza Digital</span>
             </NavbarBrand>
             <div className="flex md:order-2 gap-5">
@@ -35,7 +35,7 @@ export function TopMenu(props) {
                     arrowIcon={false}
                     inline
                     label={
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                        <Avatar alt="User settings" img="/avatar.png" rounded />
                     }
                 >
                     <DropdownHeader>

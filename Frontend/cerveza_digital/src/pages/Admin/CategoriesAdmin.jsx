@@ -12,7 +12,7 @@ export function CategoriesAdmin() {
     const [refresh, setRefresh] = useState(false)
     const [component, setComponent] = useState(null)
 
-    useEffect(() => getCategories, [refresh])
+    useEffect(() => { getCategories() }, [refresh])
     const showOrHide = () => setShow((prev) => !prev) //Abrir o cerrar el modal
     const onRefresh = () => setRefresh((prev) => !prev)
 

@@ -1,11 +1,10 @@
+import { forEach, size } from 'lodash'
 import { useParams } from 'react-router-dom'
-import { useOrders, useTable, usePayment } from '../../hooks'
 import React, { useEffect, useState } from 'react'
 import { Loading } from '../../components/Loading'
 import { ModalBasic } from '../../components/Common'
+import { useOrders, useTable, usePayment } from '../../hooks'
 import { HeaderPage, ListOrderAdmin, AddOrderForm, PaymentDetail } from '../../components/Admin'
-import { forEach, size } from 'lodash'
-
 
 export function TableDetailsAdmin() {
 
@@ -27,10 +26,6 @@ export function TableDetailsAdmin() {
         })()
     }, [refresh])
 
-    // console.log(paymentData)
-
-    // console.log(size(orders))
-
     const onRefresh = () => setRefresh((prev) => !prev)
     const showOrHide = () => setShow((prev) => !prev)
 
@@ -46,10 +41,14 @@ export function TableDetailsAdmin() {
                 totalPayment += Number(order.product_data.price)
             })
 
+            const resultTypePayment = window.confirm(
+                '¡Pago con efectivo pulsa ACEPTAR con tarjeta pulsa CANCELAR!'
+            );
+
             const paymentData = {
                 table: id,
                 totalPayment: totalPayment.toFixed(2),
-                paymentType: 'CASH',
+                paymentType: resultTypePayment ? 'CASH' : 'CARD',
                 statusPayment: 'PENDING'
             }
 
@@ -60,6 +59,7 @@ export function TableDetailsAdmin() {
             }
 
             onRefresh()
+            setPaymentData(null)
         }
     }
 
@@ -67,11 +67,10 @@ export function TableDetailsAdmin() {
         <main className='flex flex-col w-full px-4 pb-4 rounded-md bg-[#f9fafb] dark:bg-gray-800'>
             <HeaderPage
                 title={`Mesa ${table?.number || ''}`}
-                btnTitle={paymentData ? 'Ver cuenta' : 'Añadir pedido'}
+                btnTitle={size(paymentData) > 0 & size(orders) > 0 ? "Ver cuenta" : "Añadir pedido"}
                 btnClick={showOrHide}
                 btnTitleTwo={!paymentData & size(orders) > 0 ? 'Generar cuenta' : null}
                 btnClickTwo={onCreatePayment}
-
             />
 
             {loading ? (
