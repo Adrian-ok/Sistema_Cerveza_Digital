@@ -93,3 +93,15 @@ export async function deleteProductsApi(id, token) {
         throw error
     }
 }
+
+//OBTENER LOS PRODUCTOS DE UNA CATEGORIA
+export async function getProductsByCategoryApi(idCategory) {
+    try {
+        const url = `${BASE_URL}/api/products/?category=${idCategory}`
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}

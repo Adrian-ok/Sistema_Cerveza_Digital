@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../hooks'
-import { getProductsApi, addProductsApi, updateProductsApi, deleteProductsApi, getProductByIdApi } from '../api/product'
+import { getProductsApi, addProductsApi, updateProductsApi, deleteProductsApi, getProductByIdApi, getProductsByCategoryApi } from '../api/product'
 
 
 export function useProduct() {
@@ -59,12 +59,24 @@ export function useProduct() {
         }
     }
 
+    const getProductsByCategory = async (id) => {
+        try {
+            setLoading(true)
+            const result = await getProductsByCategoryApi(id)
+            setProducts(result)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
     return {
         getProducts,
         addProducts,
         updateProducts,
         deleteProducts,
         getProductById,
+        getProductsByCategory,
         loading,
         products
     }

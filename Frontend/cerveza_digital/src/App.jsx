@@ -10,15 +10,16 @@ function App() {
         <Navigations />
 
         <ToastContainer
-          position='bottom-center'
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
           closeOnClick
-          rtl={true}
+          rtl={false}
           pauseOnFocusLoss
           draggable
-          pauseOnHover={true}
+          pauseOnHover
+          theme="light"
         />
       </AuthProvider>
     </Flowbite>

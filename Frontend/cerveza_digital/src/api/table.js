@@ -89,3 +89,15 @@ export async function deleteTableApi(id, token) {
         throw error
     }
 }
+
+//OBTENER MESA POR NUMERO DE MESA
+export async function getTableByNumberApi(tableNum) {
+    try {
+        const url = `${BASE_URL}/api/tables/?number=${tableNum}`
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}

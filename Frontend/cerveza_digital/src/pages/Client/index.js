@@ -1,1 +1,5 @@
-export * from './HomeClient'
+export * from './SelectTable'
+export * from './CategoriesClient'
+export * from './ProductsClient'
+export * from './Cart'
+export * from './OrdersHistory'
