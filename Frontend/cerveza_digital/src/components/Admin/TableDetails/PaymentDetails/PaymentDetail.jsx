@@ -2,6 +2,7 @@ import React from 'react'
 import { Table, Button } from 'flowbite-react'
 import { MdPayment, MdPayments } from 'react-icons/md'
 import { useOrders, usePayment } from '../../../../hooks'
+import { toast } from 'react-toastify'
 
 export function PaymentDetail(props) {
 
@@ -12,6 +13,7 @@ export function PaymentDetail(props) {
     //CERRAR MESA (CAMBIAR PAYMENT DE PENDING A PAID)
     const onCloseTable = async () => {
         const result = window.confirm('¿Desea cerrar esta mesa?')
+        // const result = await closeTable()
         if (result) {
             await closePayment(payment.id)
 
@@ -49,3 +51,27 @@ export function PaymentDetail(props) {
         </div>
     )
 }
+
+// function closeTable() {
+//     return new Promise((resolve) => {
+//         toast(() => (
+//             <div className='bg-white p-4 rounded shadow w-72 flex flex-col gap-2'>
+//                 <p className='text-sm'>¿Desea cerrar esta mesa?</p>
+//                 <div className='flex justify-end gap-2'>
+//                     <button
+//                         onClick={() => { resolve(false) }}
+//                         className='px-3 py-1 text-sm bg-gray-300 rounded hover:bg-gray-400'
+//                     >
+//                         No
+//                     </button>
+//                     <button
+//                         onClick={() => { resolve(true) }}
+//                         className='px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700'
+//                     >
+//                         Sí
+//                     </button>
+//                 </div>
+//             </div>
+//         ))
+//     })
+// }
