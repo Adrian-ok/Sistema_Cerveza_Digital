@@ -2,6 +2,7 @@ export * from './LoginForm'
 export * from './TopMenu'
 export * from './SideMenu'
 export * from './HeaderPage'
+export * from './DownloadPdf'
 
 export * from './Users'
 export * from './Category'

@@ -7,7 +7,9 @@ export function PaymentsHistory() {
 
     const { loading, payments, getPayments } = usePayment()
 
-    useEffect(() => getPayments, [])
+    useEffect(() => {
+        getPayments()
+    }, [])
 
     return (
         <main className='flex flex-col w-full px-4 pb-4 rounded-md bg-[#f9fafb] dark:bg-gray-800'>

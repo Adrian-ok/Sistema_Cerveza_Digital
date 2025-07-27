@@ -17,17 +17,40 @@ export function ListProducts(props) {
         <div className='flex flex-col gap-4'>
             {map(products, (product) => (
                 <div
+                    className='flex flex-col p-2 gap-5 hover:cursor-pointer hover:opacity-5 border-2 border-black dark:border-white rounded-lg'
                     key={product.id}
-                    className='flex items-center justify-between gap-5 p-2 hover:cursor-pointer hover:opacity-5 border-2 border-black dark:border-white rounded-lg'
                 >
-                    <div className='flex items-center gap-2' >
-                        <img src={product.image} className='w-8' />
-                        <span className='dark:text-white text-xs font-bold' >{product.title.substring(0, 18)}</span>
+                    <div
+                        className='flex items-center justify-between'
+                    >
+                        <div className='flex items-center gap-2' >
+                            <img src={product.image} className='w-8' />
+                            <span className='dark:text-white text-xs font-bold' >{product.title.substring(0, 18)}</span>
+                        </div>
+                        <span className='dark:text-white text-xs' >$ {product.price}</span>
+                        <FcPlus size={25} onClick={() => addCart(product)} />
                     </div>
-                    <span className='dark:text-white text-xs' >$ {product.price}</span>
-                    <FcPlus size={25} onClick={() => addCart(product)} />
+                    <p className='text-gray-500 dark:text-gray-400 text-xs font-bold'>
+                        {product.description}
+                    </p>
                 </div>
             ))}
         </div>
     )
 }
+
+// <div className='flex flex-col gap-4'>
+//     {map(products, (product) => (
+//         <div
+//             key={product.id}
+//             className='flex items-center justify-between gap-5 p-2 hover:cursor-pointer hover:opacity-5 border-2 border-black dark:border-white rounded-lg'
+//         >
+//             <div className='flex items-center gap-2' >
+//                 <img src={product.image} className='w-8' />
+//                 <span className='dark:text-white text-xs font-bold' >{product.title.substring(0, 18)}</span>
+//             </div>
+//             <span className='dark:text-white text-xs' >$ {product.price}</span>
+//             <FcPlus size={25} onClick={() => addCart(product)} />
+//         </div>
+//     ))}
+// </div>

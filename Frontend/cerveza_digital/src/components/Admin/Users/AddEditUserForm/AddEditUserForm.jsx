@@ -1,14 +1,14 @@
-import React from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { Button, Label, TextInput, Checkbox } from "flowbite-react"
 import { HiMail, HiKey, HiUser, HiOutlineUser } from "react-icons/hi"
 import { useUser } from '../../../../hooks'
+import { toast } from 'react-toastify'
 
 export function AddEditUserForm(props) {
 
     const { onClose, onRefresh, user } = props
-    const { loading, addUser, updateUser } = useUser()
+    const { addUser, updateUser } = useUser()
 
     const formik = useFormik({
         initialValues: initialValues(user),
@@ -18,8 +18,10 @@ export function AddEditUserForm(props) {
             try {
                 if (user) {
                     await updateUser(user.id, values)
+                    toast.success('Actualizado!')
                 } else {
                     await addUser(values)
+                    toast.success('Añadido!')
                 }
                 onRefresh()
                 onClose()

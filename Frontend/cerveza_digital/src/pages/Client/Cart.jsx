@@ -36,7 +36,7 @@ export function Cart() {
             ) : size(products) === 0 ? (
                 <div className='flex flex-col items-center mt-52'>
                     <p className='dark:text-white' >No hay productos en el carrito</p>
-                    <Link to={`/client/${tableNum}/orders`} className='text-blue-600 underline decoration-1'>Ir a pedidos</Link>
+                    <Link to={`/client/${tableNum}`} className='text-blue-600 underline decoration-1'>Agregar productos </Link>
                 </div>
             ) : (
                 <ListProductCart products={products} onRefresh={onRefresh} />

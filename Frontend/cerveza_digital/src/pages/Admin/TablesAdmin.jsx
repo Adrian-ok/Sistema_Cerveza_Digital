@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { HeaderPage, TableTables, AddEditTableForm } from '../../components/Admin'
 import { useTable } from '../../hooks'
 import { Loading } from '../../components/Loading'
-import { ModalBasic } from '../../components/Common'
+import { ModalBasic, showConfirmToast } from '../../components/Common'
+import { toast } from 'react-toastify'
 
 export function TablesAdmin() {
 
@@ -12,7 +13,9 @@ export function TablesAdmin() {
     const [refresh, setRefresh] = useState(false)
     const [component, setComponent] = useState(null)
 
-    useEffect(() => getTables, [refresh])
+    useEffect(() => {
+        getTables()
+    }, [refresh])
     const onRefresh = () => setRefresh((prevState) => !prevState)
     const showOrHide = () => setShow((prevState) => !prevState)
 
@@ -29,11 +32,19 @@ export function TablesAdmin() {
     }
 
     const deleteTables = (data) => {
-        const option = window.confirm(`¿ Realmente desea eliminar esta mesa: ${data.number}?`)
-        if (option) {
-            deleteTable(data.id)
-            onRefresh()
-        }
+        // const option = window.confirm(`¿ Realmente desea eliminar esta mesa: ${data.number}?`)
+        // if (option) {
+        //     deleteTable(data.id)
+        //     onRefresh()
+        // }
+        showConfirmToast({
+            message: `¿Realmente desea eliminar esta mesa: ${data.number}?`,
+            onConfirm: async () => {
+                await deleteTable(data.id)
+                onRefresh()
+                toast.success('¡Eliminado!')
+            }
+        })
     }
 
     return (

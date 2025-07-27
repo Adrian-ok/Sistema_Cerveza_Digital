@@ -77,8 +77,6 @@ export function TableCategory(props) {
     );
 }
 
-
-
 function Actions(props) {
     const { category, updateCategory, deleteCategory } = props
 
@@ -91,3 +89,5 @@ function Actions(props) {
         </Table.Cell>
     )
 }
+
+

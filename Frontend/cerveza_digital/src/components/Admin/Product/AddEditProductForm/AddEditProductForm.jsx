@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { map } from 'lodash'
 import { useFormik } from 'formik'
 import { toast } from 'react-toastify'
-import React, { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useCategory, useProduct } from '../../../../hooks'
 import { FaTag, FaDollarSign, FaShoppingBag } from 'react-icons/fa'
 import { Button, Label, Select, TextInput, ToggleSwitch } from 'flowbite-react'
@@ -41,8 +41,10 @@ export function AddEditProductForm(props) {
         onSubmit: async (value) => {
             if (product) {
                 await updateProducts(product.id, value)
+                toast.success('Actualizado!')
             } else {
                 await addProducts(value)
+                toast.success('Añadido!')
             }
             onRefresh()
             onClose()
@@ -65,6 +67,22 @@ export function AddEditProductForm(props) {
                     onChange={formik.handleChange}
                     color={formik.errors.title && 'failure'}
                     helperText={<span className='text-red-600'>{formik.errors.title}</span>}
+                />
+            </div>
+            <div>
+                <div className='mb-1'>
+                    <Label htmlFor='description' value='Descripcion' />
+                </div>
+                <TextInput
+                    id='description'
+                    name='description'
+                    sizing='lg'
+                    type='text'
+                    icon={FaShoppingBag}
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    color={formik.errors.description && 'failure'}
+                    helperText={<span className='text-red-600'>{formik.errors.description}</span>}
                 />
             </div>
             <div>
@@ -127,6 +145,7 @@ export function AddEditProductForm(props) {
 function initialValues(data) {
     return {
         title: data?.title || '',
+        description: data?.description || '',
         price: data?.price || '',
         category: data?.category || '',
         active: data?.active ? true : false,
@@ -137,6 +156,7 @@ function initialValues(data) {
 function newSchema() {
     return {
         title: Yup.string().required(true),
+        description: Yup.string(),
         price: Yup.number().required(true),
         category: Yup.number().required(true),
         active: Yup.boolean().required(true),
@@ -147,6 +167,7 @@ function newSchema() {
 function updateSchema() {
     return {
         title: Yup.string().required(true),
+        description: Yup.string(),
         price: Yup.number().required(true),
         category: Yup.number().required(true),
         active: Yup.boolean().required(true),

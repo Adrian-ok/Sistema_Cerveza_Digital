@@ -21,11 +21,11 @@ export function useUser() {
         try {
             setLoading(true)
             const response = await getUsersApi(auth.token)
+            console.log(response)
             setLoading(false)
             setUsers(response)
         } catch (error) {
             setLoading(false)
-            setError(error)
         }
     }
 
@@ -36,7 +36,6 @@ export function useUser() {
             setLoading(false)
         } catch (error) {
             setLoading(false)
-            setError(error)
         }
     }
 
@@ -47,7 +46,6 @@ export function useUser() {
             setLoading(false)
         } catch (error) {
             setLoading(false)
-            setError(error)
         }
     }
 
@@ -58,7 +56,6 @@ export function useUser() {
             setLoading(false)
         } catch (error) {
             setLoading(false)
-            setError(error)
         }
     }
 

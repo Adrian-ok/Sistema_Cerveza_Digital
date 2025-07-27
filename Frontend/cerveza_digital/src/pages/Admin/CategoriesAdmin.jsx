@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCategory } from '../../hooks'
 import { Loading } from '../../components/Loading'
-import { ModalBasic } from '../../components/Common'
+import { ModalBasic, showConfirmToast } from '../../components/Common'
 import { HeaderPage, TableCategory, AddEditCategory } from '../../components/Admin'
+import { toast } from 'react-toastify'
 
 export function CategoriesAdmin() {
 
@@ -12,7 +13,9 @@ export function CategoriesAdmin() {
     const [refresh, setRefresh] = useState(false)
     const [component, setComponent] = useState(null)
 
-    useEffect(() => { getCategories() }, [refresh])
+    useEffect(() => {
+        getCategories()
+    }, [refresh])
     const showOrHide = () => setShow((prev) => !prev) //Abrir o cerrar el modal
     const onRefresh = () => setRefresh((prev) => !prev)
 
@@ -29,18 +32,19 @@ export function CategoriesAdmin() {
     }
 
     const deleteCategoryFunction = (data) => {
-        const result = window.confirm(`¿ Realmente desea eliminar esta categoria: ${data.title}?`)
-        if (result) {
-            deleteCategory(data.id)
-            toast.success('!Eliminado!')
-            onRefresh()
-        }
+        showConfirmToast({
+            message: `¿Realmente desea eliminar la categoría: ${data.title}?`,
+            onConfirm: async () => {
+                await deleteCategory(data.id)
+                onRefresh()
+                toast.success('¡Eliminado!')
+            }
+        })
     }
 
     return (
         <main className='flex flex-col w-full px-4 pb-4 rounded-md bg-[#f9fafb] dark:bg-gray-800'>
             <HeaderPage title='Categorias' btnTitle='Añadir' btnClick={addCategory} />
-
             {loading ? (
                 <Loading />
             ) : (
@@ -48,7 +52,13 @@ export function CategoriesAdmin() {
             )}
 
             <ModalBasic title={title} children={component} show={show} showOrHide={showOrHide} />
-
         </main>
     )
 }
+
+// const result = window.confirm(`¿ Realmente desea eliminar esta categoria: ${data.title}?`)
+// if (result) {
+//     deleteCategory(data.id)
+//     toast.success('!Eliminado!')
+//     onRefresh()
+// }

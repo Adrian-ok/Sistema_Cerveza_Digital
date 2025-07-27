@@ -1,7 +1,6 @@
 import { map } from 'lodash'
-// import {  } from 'flowbite-react'
 import { useOrders } from '../../../../hooks'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function PaymentProductList(props) {
 
@@ -13,7 +12,6 @@ export function PaymentProductList(props) {
     useEffect(() => {
         (async () => {
             const response = await getOrdersByPayment(payment.id)
-            console.log(response)
             setOrders(response)
         })()
     }, [])

@@ -1,9 +1,9 @@
-import React from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { MdTableBar } from 'react-icons/md'
 import { Button, Label, TextInput, } from 'flowbite-react'
 import { useTable } from '../../../../hooks'
+import { toast } from 'react-toastify'
 
 export function AddEditTableForm(props) {
 
@@ -17,8 +17,10 @@ export function AddEditTableForm(props) {
         onSubmit: async (value) => {
             if (table) {
                 await updateTable(table.id, value)
+                toast.success('Actualizado!')
             } else {
                 await addTable(value)
+                toast.success('Añadido!')
             }
 
             onRefresh()

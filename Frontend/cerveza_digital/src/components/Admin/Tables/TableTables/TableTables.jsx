@@ -2,10 +2,25 @@ import React, { useState } from 'react'
 import { Table, Pagination } from 'flowbite-react'
 import { ModalBasic } from '../../../Common'
 import { map } from 'lodash'
+import { BsQrCode } from "react-icons/bs";
+import { QRCodeSVG } from 'qrcode.react';
 
 export function TableTables(props) {
 
     const { tables, updateTable, deleteTable } = props
+    const [show, setShow] = useState(false)
+    const [component, setComponent] = useState(null)
+
+    const showOrHide = () => setShow((prevState) => !prevState)
+
+    const showQr = (table) => {
+        setComponent(
+            <div className='flex justify-center'>
+                <QRCodeSVG value={`${window.location.origin}/client/${table.number}`} />
+            </div>
+        )
+        showOrHide()
+    }
 
     const [pagActual, setPagActual] = useState(1)
     const itemsPorPag = 6
@@ -31,13 +46,13 @@ export function TableTables(props) {
                     {map(currentTables, (item, index) => (
                         <Table.Row key={index} className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                             <Table.Cell>Mesa: {item.number}</Table.Cell>
-                            <Actions table={item} updateTable={updateTable} deleteTable={deleteTable} />
+                            <Actions table={item} updateTable={updateTable} deleteTable={deleteTable} showQr={showQr} />
                         </Table.Row>
                     ))}
                 </Table.Body>
             </Table>
 
-            {/* <ModalBasic show={ } showOrHide={ } /> */}
+            <ModalBasic show={show} showOrHide={showOrHide} children={component} title='Codigo QR' />
 
             <div className="flex justify-center">
                 <Pagination
@@ -55,12 +70,12 @@ export function TableTables(props) {
 }
 
 function Actions(props) {
-    const { table, updateTable, deleteTable } = props
+    const { table, updateTable, deleteTable, showQr } = props
 
     return (
         <Table.Cell>
             <div className='flex justify-center gap-8'>
-                <button onClick={() => console.log(table)}>qr</button>
+                <button onClick={() => showQr(table)}><BsQrCode /></button>
                 <button onClick={() => updateTable(table)}>✏️</button>
                 <button onClick={() => deleteTable(table)}>🗑️</button>
             </div>

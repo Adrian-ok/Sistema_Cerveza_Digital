@@ -62,7 +62,7 @@ export async function closePaymentApi(idPayment) {
 export async function getPaymentsApi() {
     try {
         const paymentFilter = `statusPayment=${PAYMENT_STATUS.PAID}`
-        const orderingFilter = 'ordering=created_at'
+        const orderingFilter = 'ordering=-created_at'
 
         const url = `${BASE_URL}/api/payments/?${paymentFilter}&${orderingFilter}`
         const response = await fetch(url)

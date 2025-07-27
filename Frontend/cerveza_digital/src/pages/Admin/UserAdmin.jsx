@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useUser } from '../../hooks'
 import { HeaderPage, TableUsers, AddEditUserForm } from '../../components/Admin'
 import { Loading } from '../../components/Loading'
-import { ModalBasic } from '../../components/Common'
+import { ModalBasic, showConfirmToast } from '../../components/Common'
+import { toast } from 'react-toastify'
 
 export function UserAdmin() {
 
@@ -12,7 +13,9 @@ export function UserAdmin() {
     const [refresh, setRefresh] = useState(false)
     const [component, setComponent] = useState(null)
 
-    useEffect(() => getUsers, [refresh])
+    useEffect(() => {
+        getUsers()
+    }, [refresh])
 
     const showOrHide = () => setShow((prev) => !prev) //Abrir o cerrar el modal
     const onRefresh = () => setRefresh((prev) => !prev)
@@ -30,15 +33,23 @@ export function UserAdmin() {
     }
 
     const deleteUsuario = async (data) => {
-        const result = window.confirm(`¿ Realmente desea eliminar este usuario: ${data.username} ?`)
-        if (result) {
-            try {
+        // const result = window.confirm(`¿ Realmente desea eliminar este usuario: ${data.username} ?`)
+        // if (result) {
+        //     try {
+        //         await deleteUser(data.id)
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+        //     onRefresh()
+        // }
+        showConfirmToast({
+            message: `¿Realmente desea eliminar este usuario: ${data.username}?`,
+            onConfirm: async () => {
                 await deleteUser(data.id)
-            } catch (error) {
-                console.log(error)
+                onRefresh()
+                toast.success('¡Eliminado!')
             }
-            onRefresh()
-        }
+        })
     }
 
     return (

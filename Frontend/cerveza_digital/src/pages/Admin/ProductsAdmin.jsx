@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCategory, useProduct } from '../../hooks'
 import { Loading } from '../../components/Loading'
-import { ModalBasic } from '../../components/Common'
+import { ModalBasic, showConfirmToast } from '../../components/Common'
 import { HeaderPage, TableProduct, AddEditProductForm } from '../../components/Admin'
-import { size } from 'lodash'
+import { toast } from 'react-toastify'
 
 export function ProductsAdmin() {
 
@@ -34,11 +34,19 @@ export function ProductsAdmin() {
     }
 
     const deleteProduct = (data) => {
-        const option = window.confirm(`¿ Realmente desea eliminar esta producto: ${data.title}?`)
-        if (option) {
-            deleteProducts(data.id)
-            onRefresh()
-        }
+        // const option = window.confirm(`¿ Realmente desea eliminar esta producto: ${data.title}?`)
+        // if (option) {
+        //     deleteProducts(data.id)
+        //     onRefresh()
+        // }
+        showConfirmToast({
+            message: `¿Realmente desea eliminar este producto: ${data.title}?`,
+            onConfirm: async () => {
+                await deleteProducts(data.id)
+                onRefresh()
+                toast.success('¡Eliminado!')
+            }
+        })
     }
 
     return (

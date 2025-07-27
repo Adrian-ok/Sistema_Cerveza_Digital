@@ -8,7 +8,7 @@ from products.api.serializers import ProductSerializer
 class ProductApiViewSet(ModelViewSet):
     permission_classes= [IsAuthenticatedOrReadOnly]
     serializer_class = ProductSerializer
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('category')
 
     #filters
     filter_backends = [DjangoFilterBackend]
