@@ -3,6 +3,7 @@ python = 3.11
 node >= 22.11.0
 
 Levantar servidor backend:
+- abra una terminal dentro de la carpeta "Sistema_cerveza_digital"
 - ubiquese dentro de "backend/"
 - crear entorno virtual "python -m venv venv"
 - ubiquese dentro de "backend/venv/scripts"
@@ -17,6 +18,7 @@ Levantar servidor backend:
   - accceda con los datos de su super usuario
 
 Levantar servidor frontend:
+- abra una terminal dentro de la carpeta "Sistema_cerveza_digital"
 - ubiquese dentro de "frontend/cerveza_digital"
 - instale las dependencias "npm install"
 - levantar el servidor "npm run dev"
