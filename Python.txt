@@ -2,7 +2,4 @@ python = 3.11
 
 node >= 22.11.0
 
-Si esta utilizando windows y posee las versiones mencionadas de node y python, puede ejecutar en una terminal
-"python run_dev_windows.py" y el script creara el entorno virtual si no existe, instalara los "requirements" y levantara el 
-servidor backend. Del mismo modo con el frontend, verifica si estan instaladas las dependencias del proyecto en
-caso que no las instala y levanta el servidor frontend.
+
