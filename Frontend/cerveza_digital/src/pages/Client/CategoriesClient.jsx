@@ -5,9 +5,9 @@ import { ListCategories } from '../../components/Client'
 
 export function CategoriesClient() {
 
-    const { loading, categories, getCategories } = useCategory()
+    const { loading, categories, getCategoriesClient } = useCategory()
 
-    useEffect(() => getCategories, [])
+    useEffect(() => getCategoriesClient, [])
 
     return (
         <main className='flex flex-col w-full h-full p-3 rounded-md bg-[#f9fafb] dark:bg-gray-800'>

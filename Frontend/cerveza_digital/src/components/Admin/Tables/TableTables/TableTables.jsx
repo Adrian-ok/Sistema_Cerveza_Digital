@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Table, Pagination } from 'flowbite-react'
 import { ModalBasic } from '../../../Common'
 import { map } from 'lodash'
@@ -14,8 +14,8 @@ export function TableTables(props) {
     const showOrHide = () => setShow((prevState) => !prevState)
 
     const showQr = (table) => {
-        setComponent(
-            <div className='flex justify-center'>
+         setComponent(
+            <div className='flex flex-col items-center gap-5'>
                 <QRCodeSVG value={`${window.location.origin}/client/${table.number}`} />
             </div>
         )

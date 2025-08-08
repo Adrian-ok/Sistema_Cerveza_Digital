@@ -5,7 +5,7 @@ import { FaTag } from 'react-icons/fa'
 import { useDropzone } from 'react-dropzone'
 import { useCategory } from '../../../../hooks'
 import React, { useCallback, useState } from 'react'
-import { Button, Label, TextInput } from 'flowbite-react'
+import { Button, Label, TextInput, ToggleSwitch } from 'flowbite-react'
 
 
 export function AddEditCategory(props) {
@@ -72,6 +72,14 @@ export function AddEditCategory(props) {
                 />
             </div>
 
+            <ToggleSwitch
+                checked={formik.values.active}
+                onChange={(data) => formik.setFieldValue('active', data)}
+                label='Activo'
+                id='active'
+                name='active'
+            />
+
             <Button size='xs' className='w-full mt-5' color={formik.errors.image ? 'failure' : 'success'} {...getRootProps()}>
                 {previewImg ? 'Cambiar Imagen' : 'Subir Imagen'}
             </Button>
@@ -88,6 +96,7 @@ export function AddEditCategory(props) {
 function initialValues(data) {
     return {
         title: data?.title || '',
+        active: data?.active ? true : false,
         image: ''
     }
 }
@@ -95,6 +104,7 @@ function initialValues(data) {
 function newSchema() {
     return {
         title: Yup.string().required('Complete este campo'),
+        active: Yup.boolean().required(true),
         image: Yup.string().required(true)
     }
 }
@@ -102,6 +112,7 @@ function newSchema() {
 function updateSchema() {
     return {
         title: Yup.string().required('Complete este campo'),
+        active: Yup.boolean().required(true),
         image: Yup.string()
     }
 }

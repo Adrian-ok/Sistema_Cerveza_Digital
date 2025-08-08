@@ -47,6 +47,7 @@ export function TableCategory(props) {
                 <Table.Head className='text-center'>
                     <Table.HeadCell>Imagen</Table.HeadCell>
                     <Table.HeadCell>Categoria</Table.HeadCell>
+                    <Table.HeadCell>Activo</Table.HeadCell>
                     <Table.HeadCell>Acciones</Table.HeadCell>
                 </Table.Head>
                 <Table.Body className='divide-y text-center'>
@@ -56,6 +57,7 @@ export function TableCategory(props) {
                                 <img src={item.image} className='w-12' alt={item.title} />
                             </Table.Cell>
                             <Table.Cell>{item.title}</Table.Cell>
+                            <Table.Cell>{item.active ? '🟢' : '🔴'}</Table.Cell>
                             <Actions category={item} updateCategory={updateCategory} deleteCategory={deleteCategory} />
                         </Table.Row>
                     ))}
