@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { useTable } from '../../../hooks'
 import { useNavigate } from 'react-router-dom'
 import { Button, TextInput } from 'flowbite-react'
+import { getTableIsClose } from '../../../api/orders'
 
 export function SelectTable() {
     const { isExistTable } = useTable()
@@ -15,9 +16,15 @@ export function SelectTable() {
         validationSchema: Yup.object().shape({ tableNum: Yup.number().required('Campo requerido') }),
         validateOnChange: false,
         onSubmit: async (formValue) => {
+            // let close = []
+            const close = await getTableIsClose(formValue.tableNum, 'PENDING', 'ordering=-status,created_at')
             const exist = await isExistTable(formValue.tableNum)
             if (exist) {
-                navigate(`/client/${formValue.tableNum}`)
+                if (close.length > 0) {
+                    toast.error('Mesa ocupada')
+                } else {
+                    navigate(`/client/${formValue.tableNum}`)
+                }
             } else {
                 toast.error('Esta mesa no existe!')
             }
